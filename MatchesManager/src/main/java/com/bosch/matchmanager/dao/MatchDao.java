@@ -24,8 +24,6 @@ public class MatchDao{
 	@PersistenceUnit
     private EntityManagerFactory entityManagerFactory;
 	
-	
-	
 	public List<Match> getAllMatches(){
 		TypedQuery<Match> query = em.createQuery("SELECT m FROM Match m", Match.class);
 		return query.getResultList();
@@ -46,12 +44,6 @@ public class MatchDao{
 		return false;
 	}
 	
-//	@Transactional
-//	public void delete (int matchId){
-//		Match match = em.getReference(Match.class, matchId);
-//		em.remove(match);
-//	}
-	
 	public void delete (int matchId){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
@@ -61,17 +53,19 @@ public class MatchDao{
 		entityManager.getTransaction().commit();
 	}
 	
-	
-//	@Transactional
-//	public void save (Match m){
-//		em.persist(m);
-//	}
-	
 	public void save(Match match){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(match);
 		entityManager.flush();
+		entityManager.getTransaction().commit();
+	}
+	
+	public void update(int matchId, String score){
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Match m = entityManager.find(Match.class, matchId);
+		entityManager.getTransaction().begin();
+		entityManager.createQuery("UPDATE Match set score = '" + score + "' WHERE id = " + matchId ).executeUpdate();
 		entityManager.getTransaction().commit();
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bosch.matchmanager.model.Match;
 import com.bosch.matchmanager.model.Team;
@@ -29,16 +30,6 @@ public class MatchController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	
-//	public String home(Locale locale, Model model) {
-//		logger.info("Welcome home! The client locale is {}.", locale);
-//		
-//		Date date = new Date();
-//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-//		
-//		String formattedDate = dateFormat.format(date);
-//		
-//		model.addAttribute("serverTime", formattedDate );
 	@Autowired
 	private MatchService matchService;
 	
@@ -47,15 +38,6 @@ public class MatchController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model){
-//		List<Match> matches = matchService.getAllMatches();
-//		model.addAttribute("matches", matches);
-//		return "home";
-		
-//		List<Team> teams = teamService.getAllTeams();
-//		model.addAttribute("teams", teams);
-
-		
-		
 		List<Match> matches = matchService.getAllMatches();
 		Map<Integer, String> map = teamService.teamMap();
 		
@@ -78,11 +60,6 @@ public class MatchController {
 		
 		Team team2 = teamService.getTeamById(2);
 		
-//		Team team1 = new Team();
-//		team1.setTeamName("Vietnam");
-//		Team team2 = new Team();
-//		team1.setTeamName("Singapore");
-		
 		Match m = new Match();
 		m.setTeam1Id(team1);
 		m.setTeam2Id(team2);
@@ -94,12 +71,44 @@ public class MatchController {
 	}
 	
 	@RequestMapping(value = "/delete/{matchId}", method = RequestMethod.GET)
-	public String removeUser(@PathVariable("matchId") int matchId) {
+	public String removeMatch(@PathVariable("matchId") int matchId) {
 		
 		matchService.delete(matchId);
 		System.out.println(matchId);
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/update", method = RequestMethod.GET)
+	public String updateMatch(){
+		
+		matchService.update(1, "5-5");
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/abc", method = RequestMethod.POST)
+	public String abc(@RequestParam("hello") String hello, @RequestParam("xinchao") String xinchao){
+		System.out.println(hello);
+		System.out.println(xinchao);
+		
+		System.out.println("asdlkajsdlkjaslkdjalskjdlajslkd");
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/{function}" ,method = RequestMethod.GET)
+	public String function(@PathVariable("function") String function){
+		if(function.equals("addmatch")){
+			System.out.println("CREATE MATCH");
+			return "create";
+		}
+		return "home";
+//		else if(function.equals("updatematch"))
+//			//return "update";
+//			System.out.println("update MATCH");
+//		else System.out.println("LOGIN MATCH");//return "login";
+	}
+	
 	
 	
 }

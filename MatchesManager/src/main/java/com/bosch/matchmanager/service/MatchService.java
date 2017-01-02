@@ -34,4 +34,8 @@ public class MatchService {
 	public boolean matchExisted(int team1Id, int team2Id){
 		return matchDAO.matchExisted(team1Id, team2Id);
 	}
+	
+	public void update(int matchId, String score){
+		matchDAO.update(matchId, score);
+	}
 }
