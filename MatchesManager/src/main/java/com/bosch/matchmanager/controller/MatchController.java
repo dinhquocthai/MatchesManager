@@ -24,91 +24,84 @@ import com.bosch.matchmanager.service.TeamService;
  */
 @Controller
 public class MatchController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(MatchController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@Autowired
 	private MatchService matchService;
-	
+
 	@Autowired
 	private TeamService teamService;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model){
+	public String home(Model model) {
 		List<Match> matches = matchService.getAllMatches();
 		Map<Integer, String> map = teamService.teamMap();
-		
-		//System.out.println(map.get(matches.get(1).getTeam1Id().getTeamId()));
+
+		// System.out.println(map.get(matches.get(1).getTeam1Id().getTeamId()));
 		model.addAttribute("matches", matches);
 		model.addAttribute("map", map);
 		List<Team> teams = teamService.getAllTeams();
-		
-		for(Team t : teams){
+
+		for (Team t : teams) {
 			System.out.println(t.getTeamName());
 		}
 		return "home";
 	}
-	
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public String addMatch() {
-		
-		Team team1 = teamService.getTeamById(1);
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addMatch(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score) {
+
+		Team team1 = teamService.getTeamById(team1Id);
 		System.out.println(team1.getTeamName());
-		
-		Team team2 = teamService.getTeamById(2);
+
+		Team team2 = teamService.getTeamById(team2Id);
+		System.out.println(team2);
 		
 		Match m = new Match();
 		m.setTeam1Id(team1);
 		m.setTeam2Id(team2);
-		m.setScore("2-0");
-		
+		m.setScore(score);
+
 		matchService.save(m);
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/delete/{matchId}", method = RequestMethod.GET)
 	public String removeMatch(@PathVariable("matchId") int matchId) {
-		
+
 		matchService.delete(matchId);
 		System.out.println(matchId);
 		return "redirect:/";
 	}
-	
-	@RequestMapping(value="/update", method = RequestMethod.GET)
-	public String updateMatch(){
-		
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateMatch() {
+
 		matchService.update(1, "5-5");
-		
+
 		return "redirect:/";
 	}
-	
-	@RequestMapping(value="/abc", method = RequestMethod.POST)
-	public String abc(@RequestParam("hello") String hello, @RequestParam("xinchao") String xinchao){
+
+	@RequestMapping(value = "/abc", method = RequestMethod.POST)
+	public String abc(@RequestParam("hello") String hello, @RequestParam("xinchao") String xinchao, @RequestParam("number") int number) {
 		System.out.println(hello);
 		System.out.println(xinchao);
-		
+		System.out.println(number);
 		System.out.println("asdlkajsdlkjaslkdjalskjdlajslkd");
-		
+
 		return "redirect:/";
 	}
-	
-	@RequestMapping(value="/{function}" ,method = RequestMethod.GET)
-	public String function(@PathVariable("function") String function){
-		if(function.equals("addmatch")){
-			System.out.println("CREATE MATCH");
-			return "create";
-		}
-		return "home";
-//		else if(function.equals("updatematch"))
-//			//return "update";
-//			System.out.println("update MATCH");
-//		else System.out.println("LOGIN MATCH");//return "login";
+
+	@RequestMapping(value = "/addmatch", method = RequestMethod.POST)
+	public String goToAddPage(Model model) {
+		List<Team> teams = teamService.getAllTeams();
+		model.addAttribute("teams", teams);
+		return "create";
 	}
-	
-	
-	
+
 }

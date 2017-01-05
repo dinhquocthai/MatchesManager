@@ -58,7 +58,10 @@
 		</c:if>
 	</table>
 	<br>
-	<a href="<c:url value="/addmatch"/>" >Add new match</a>
+	
+	<form action="<c:url value="/addmatch"/>" method="POST">
+		<input type="submit" value="Add new match"/>
+	</form>
 	
 	
 	
@@ -66,6 +69,7 @@
 		<input type="submit" value="abc" />
 		<input type="hidden" name="hello" value="hello" />
 		<input type="hidden" name="xinchao" value = "xinchao" />
+		<input type="hidden" name="number" value = 1 />
 	</form> 
 </body>
 </html>
