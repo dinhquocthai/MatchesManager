@@ -10,7 +10,7 @@
 
 <body BGCOLOR=#FDF5E6 align=center>
 	<h1>Create Match</h1>
-	<p>You must choose 2 different teams</p>
+	<p>(Choose 2 different teams)</p>
 	
 	<form action="<c:url value="/add" />" method="POST">
 		<table border=1 cellpadding=5 cellspacing= 5 align=center>
@@ -42,9 +42,17 @@
 				</td>
 			</tr>
 		</table>
-		
+		<c:if test="${not empty alert }">
+			<c:out value="${alert }" />
+		</c:if>
 		<br>
 		<input type="submit" value="Add match" />
+		
+		
+	</form>
+	
+	<form action="<c:url value="/" />" >
+		<input type="submit" value="Back to home" />	
 	</form>
 </body>
 </html>

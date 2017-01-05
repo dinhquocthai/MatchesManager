@@ -53,13 +53,19 @@ public class MatchController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addMatch(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score) {
+	public String addMatch(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score, Model model) {
 
 		Team team1 = teamService.getTeamById(team1Id);
 		System.out.println(team1.getTeamName());
 
 		Team team2 = teamService.getTeamById(team2Id);
 		System.out.println(team2);
+		
+		if(team1Id == team2Id){
+			model.addAttribute("alert", "You must choose 2 different team");
+			model.addAttribute("teams", teamService.getAllTeams());
+			return "create";
+		}
 		
 		Match m = new Match();
 		m.setTeam1Id(team1);
