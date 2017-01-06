@@ -27,11 +27,15 @@
 				<c:set var="score" value="${match.getScore() }" />
 				<td align=center><c:out value="${map[team1Id]}" /></td>
 				<td align=center><c:out value="${map[team2Id]}" /></td>
-				<td align=center><c:out value="${match.getScore()}" /></td>
+				<td align=center><c:out value="${score}" /></td>
 				
 				<td align=center>
-					<form action="<c:url value="/update"/>" method="GET">
+					<form action="<c:url value="/update_match_page"/>" method="POST">
 						<input type="submit" value="Update" />
+						<input type="hidden" name="team1Id" value="${team1Id }" />
+						<input type="hidden" name="team2Id" value="${team2Id }" />
+						<input type="hidden" name="score" value="${score }" />
+						<input type="hidden" name="matchId" value="${match.getId() }" />
 					</form>
 				</td>
 				
@@ -59,7 +63,7 @@
 	</table>
 	<br>
 	
-	<form action="<c:url value="/addmatch"/>" method="POST">
+	<form action="<c:url value="/add_match_page"/>" method="POST">
 		<input type="submit" value="Add new match"/>
 	</form>
 	

@@ -40,8 +40,8 @@ public class MatchDao{
 				+ "AND m.team2Id = " + team2Id + ") OR (m.team1Id = " 
 				+ team2Id + "AND m.team2Id = " + team1Id + ")", Match.class);
 		if(query.getResultList().isEmpty())
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 	
 	public void delete (int matchId){

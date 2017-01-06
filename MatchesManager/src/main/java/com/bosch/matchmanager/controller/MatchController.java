@@ -52,6 +52,13 @@ public class MatchController {
 		return "home";
 	}
 
+	@RequestMapping(value = "/add_match_page", method = RequestMethod.POST)
+	public String goToAddPage(Model model) {
+		List<Team> teams = teamService.getAllTeams();
+		model.addAttribute("teams", teams);
+		return "create";
+	}
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addMatch(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score, Model model) {
 
@@ -63,6 +70,12 @@ public class MatchController {
 		
 		if(team1Id == team2Id){
 			model.addAttribute("alert", "You must choose 2 different team");
+			model.addAttribute("teams", teamService.getAllTeams());
+			return "create";
+		}
+		
+		if(matchService.matchExisted(team1Id, team2Id)){
+			model.addAttribute("alert", "This match is existed, please choose another team.");
 			model.addAttribute("teams", teamService.getAllTeams());
 			return "create";
 		}
@@ -81,17 +94,34 @@ public class MatchController {
 	public String removeMatch(@PathVariable("matchId") int matchId) {
 
 		matchService.delete(matchId);
-		System.out.println(matchId);
+		
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateMatch() {
-
-		matchService.update(1, "5-5");
-
-		return "redirect:/";
+	@RequestMapping(value = "/update_match_page", method = RequestMethod.POST)
+	public String updateMatch(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score, @RequestParam("matchId") int matchId, Model model) {
+		model.addAttribute("team1Id", team1Id);
+		model.addAttribute("team2Id", team2Id);
+		model.addAttribute("score", score);
+		model.addAttribute("matchId", matchId);
+		model.addAttribute("teams", teamService.getAllTeams());
+		return "update";
 	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score , Model model){
+		if(team1Id == team2Id){
+			model.addAttribute("team1Id", team1Id);
+			model.addAttribute("team2Id", team2Id);
+			model.addAttribute("score", score);
+			model.addAttribute("teams", teamService.getAllTeams());
+			model.addAttribute("alert", "You must choose 2 different teams");
+			return "redirect:/";
+		}
+		return null;
+	}
+	
+	
 
 	@RequestMapping(value = "/abc", method = RequestMethod.POST)
 	public String abc(@RequestParam("hello") String hello, @RequestParam("xinchao") String xinchao, @RequestParam("number") int number) {
@@ -103,11 +133,6 @@ public class MatchController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/addmatch", method = RequestMethod.POST)
-	public String goToAddPage(Model model) {
-		List<Team> teams = teamService.getAllTeams();
-		model.addAttribute("teams", teams);
-		return "create";
-	}
+	
 
 }
