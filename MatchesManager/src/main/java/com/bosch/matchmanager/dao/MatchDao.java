@@ -39,10 +39,11 @@ public class MatchDao{
 				"SELECT m FROM Match m WHERE (m.team1Id = " + team1Id 
 				+ "AND m.team2Id = " + team2Id + ") OR (m.team1Id = " 
 				+ team2Id + "AND m.team2Id = " + team1Id + ")", Match.class);
-		if(query.getResultList().isEmpty())
-			return false;
-		return true;
+		if(!query.getResultList().isEmpty())
+			return true;
+		return false;
 	}
+	
 	
 	public void delete (int matchId){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -63,7 +64,7 @@ public class MatchDao{
 	
 	public void update(int matchId, String score){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Match m = entityManager.find(Match.class, matchId);
+		
 		entityManager.getTransaction().begin();
 		entityManager.createQuery("UPDATE Match set score = '" + score + "' WHERE id = " + matchId ).executeUpdate();
 		entityManager.getTransaction().commit();

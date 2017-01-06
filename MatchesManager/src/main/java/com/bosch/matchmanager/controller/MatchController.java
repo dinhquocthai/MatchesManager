@@ -100,25 +100,20 @@ public class MatchController {
 
 	@RequestMapping(value = "/update_match_page", method = RequestMethod.POST)
 	public String updateMatch(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score, @RequestParam("matchId") int matchId, Model model) {
-		model.addAttribute("team1Id", team1Id);
-		model.addAttribute("team2Id", team2Id);
+		model.addAttribute("team1Name", teamService.getTeamById(team1Id).getTeamName());
+		model.addAttribute("team2Name", teamService.getTeamById(team2Id).getTeamName());
 		model.addAttribute("score", score);
 		model.addAttribute("matchId", matchId);
-		model.addAttribute("teams", teamService.getAllTeams());
 		return "update";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@RequestParam("team1Id") int team1Id, @RequestParam("team2Id") int team2Id, @RequestParam("score") String score , Model model){
-		if(team1Id == team2Id){
-			model.addAttribute("team1Id", team1Id);
-			model.addAttribute("team2Id", team2Id);
-			model.addAttribute("score", score);
-			model.addAttribute("teams", teamService.getAllTeams());
-			model.addAttribute("alert", "You must choose 2 different teams");
-			return "redirect:/";
+	public String update(@RequestParam("score") String score , @RequestParam("matchId") int matchId){
+		if(score.trim().equals("")){
+			
 		}
-		return null;
+		matchService.update(matchId, score);
+		return "redirect:/";
 	}
 	
 	

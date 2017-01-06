@@ -9,8 +9,13 @@
 	<h1>
 		Match Manager  
 	</h1>
-
-	<table border=1 cellpadding=5 cellspacing= 5 align=center>
+	
+	<c:choose>
+		<c:when test="${empty matches}">
+			<c:out value="No match found." />
+		</c:when>
+		<c:otherwise>
+			<table border=1 cellpadding=5 cellspacing= 5 align=center>
 		
 		<tr BGCOLOR=#FFAD00 align=center>
 				<td align=center>Team 1</td>
@@ -57,10 +62,12 @@
 		</c:forEach> --%>
 		
 		
-		<c:if test="${empty matches}">
-			No matches added yet
-		</c:if>
+		
 	</table>
+		</c:otherwise>
+	</c:choose>
+	
+	
 	<br>
 	
 	<form action="<c:url value="/add_match_page"/>" method="POST">
