@@ -12,7 +12,7 @@
 	<h1>Create Match</h1>
 	<p>(Choose 2 different teams)</p>
 	
-	<form action="<c:url value="/add" />" method="POST">
+	<form name="createForm" action="<c:url value="/add" />" method="POST" onsubmit="return validation(this)">
 		<table border=1 cellpadding=5 cellspacing= 5 align=center>
 			<tr BGCOLOR=#FFAD00>
 				<td align=center>Team 1</td>
@@ -47,12 +47,20 @@
 		</c:if>
 		<br>
 		<input type="submit" value="Add match" />
-		
-		
 	</form>
 	
 	<form action="<c:url value="/" />" >
 		<input type="submit" value="Back to home" />	
 	</form>
+	
+	<script type="text/javascript">
+		function validation(){
+			var score = document.forms["createForm"]["score"].value;
+			if(score == "" || score.trim() == ""){
+				alert("Input the score");
+				return false;
+			}
+		}
+	</script>
 </body>
 </html>

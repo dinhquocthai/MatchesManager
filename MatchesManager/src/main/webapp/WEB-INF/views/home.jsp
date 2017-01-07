@@ -74,13 +74,11 @@
 		<input type="submit" value="Add new match"/>
 	</form>
 	
+	<form action="<c:url value="/search_page" /> method="POST"" >
+		<input type="submit" value="Search match" />
+	</form>
 	
 	
-	<form action="<c:url value="/abc"/>" method = "POST">
-		<input type="submit" value="abc" />
-		<input type="hidden" name="hello" value="hello" />
-		<input type="hidden" name="xinchao" value = "xinchao" />
-		<input type="hidden" name="number" value = 1 />
-	</form> 
+	
 </body>
 </html>

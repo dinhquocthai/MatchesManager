@@ -109,9 +109,6 @@ public class MatchController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@RequestParam("score") String score , @RequestParam("matchId") int matchId){
-		if(score.trim().equals("")){
-			
-		}
 		matchService.update(matchId, score);
 		return "redirect:/";
 	}
