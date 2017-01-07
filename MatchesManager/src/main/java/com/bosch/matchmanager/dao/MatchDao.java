@@ -47,7 +47,6 @@ public class MatchDao{
 	
 	public void delete (int matchId){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		
 		Match m = entityManager.find(Match.class, matchId);
 		entityManager.getTransaction().begin();
 		entityManager.remove(m);
@@ -64,7 +63,6 @@ public class MatchDao{
 	
 	public void update(int matchId, String score){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		
 		entityManager.getTransaction().begin();
 		entityManager.createQuery("UPDATE Match set score = '" + score + "' WHERE id = " + matchId ).executeUpdate();
 		entityManager.getTransaction().commit();

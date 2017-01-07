@@ -28,4 +28,8 @@ public class TeamService {
 	public Map<Integer, String> teamMap(){
 		return teamDAO.teamMap();
 	}
+	
+	public int getTeamIdByName(String teamName){
+		return teamDAO.getTeamIdByName(teamName);
+	}
 }

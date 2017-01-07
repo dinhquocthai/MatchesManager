@@ -33,6 +33,13 @@ public class TeamDao {
 		return team.getTeamName();
 	}
 
+	public int getTeamIdByName(String teamName){
+		for(Team t : this.getAllTeams()){
+			if(t.getTeamName().toLowerCase().equals(teamName.toLowerCase()))
+				return t.getTeamId();
+		}
+		return 0;
+	}
 	
 	public Team getTeamById(int id){
 		EntityManager entityManager = entityManagerFactory.createEntityManager();

@@ -114,17 +114,22 @@ public class MatchController {
 	}
 	
 	
-
-	@RequestMapping(value = "/abc", method = RequestMethod.POST)
-	public String abc(@RequestParam("hello") String hello, @RequestParam("xinchao") String xinchao, @RequestParam("number") int number) {
-		System.out.println(hello);
-		System.out.println(xinchao);
-		System.out.println(number);
-		System.out.println("asdlkajsdlkjaslkdjalskjdlajslkd");
-
-		return "redirect:/";
+	@RequestMapping(value="/search_page", method = RequestMethod.POST)
+	public String searchMatch(){
+		return "search";
 	}
 
-	
-
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public String search(@RequestParam("teamName") String teamName, Model model){
+		if(teamService.getTeamIdByName(teamName) == 0){
+			model.addAttribute("alert", "No matches found!");
+			return "search";
+		}
+		List<Match> matches = matchService.getMatchesByTeam(teamService.getTeamIdByName(teamName));
+		Map<Integer, String> map = teamService.teamMap();
+		model.addAttribute("matches", matches);
+		model.addAttribute("map", map);
+		model.addAttribute("action", "search");
+		return "search";
+	}
 }

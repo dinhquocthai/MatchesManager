@@ -74,7 +74,7 @@
 		<input type="submit" value="Add new match"/>
 	</form>
 	
-	<form action="<c:url value="/search_page" /> method="POST"" >
+	<form action="<c:url value="/search_page" />" method="POST" >
 		<input type="submit" value="Search match" />
 	</form>
 	
