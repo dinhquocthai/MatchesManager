@@ -9,8 +9,8 @@
 </head>
 
 <body BGCOLOR=#FDF5E6 align=center>
-	<h1>Create Match</h1>
-	<p>(Choose 2 different teams)</p>
+	<h1 align=center>Create Match</h1>
+	<p align=center>(Choose 2 different teams)</p>
 	
 	<form name="createForm" action="<c:url value="/add" />" method="POST" onsubmit="return validation(this)">
 		<table border=1 cellpadding=5 cellspacing= 5 align=center>
@@ -46,12 +46,18 @@
 			<c:out value="${alert }" />
 		</c:if>
 		<br>
+		<center>
 		<input type="submit" value="Add match" />
+		</center>
+		
 	</form>
-	
+	<br>
+	<center>
 	<form action="<c:url value="/" />" >
 		<input type="submit" value="Back to home" />	
 	</form>
+	</center>
+	
 	
 	<script type="text/javascript">
 		function validation(){

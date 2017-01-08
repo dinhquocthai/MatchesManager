@@ -2,7 +2,6 @@ package com.bosch.matchmanager.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bosch.matchmanager.model.Account;
 import com.bosch.matchmanager.model.Match;
 import com.bosch.matchmanager.model.Team;
+import com.bosch.matchmanager.service.AccountService;
 import com.bosch.matchmanager.service.MatchService;
 import com.bosch.matchmanager.service.TeamService;
 
@@ -35,6 +36,11 @@ public class MatchController {
 
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private AccountService accountService;
+	
+	private boolean login = false;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -44,10 +50,16 @@ public class MatchController {
 		// System.out.println(map.get(matches.get(1).getTeam1Id().getTeamId()));
 		model.addAttribute("matches", matches);
 		model.addAttribute("map", map);
+		model.addAttribute("login", this.login);
 		List<Team> teams = teamService.getAllTeams();
 
 		for (Team t : teams) {
 			System.out.println(t.getTeamName());
+		}
+		
+		List<Account> accounts = accountService.getAllAccounts();
+		for (Account a : accounts){
+			System.out.println(a.getUsername());
 		}
 		return "home";
 	}
@@ -131,5 +143,28 @@ public class MatchController {
 		model.addAttribute("map", map);
 		model.addAttribute("action", "search");
 		return "search";
+	}
+	
+	@RequestMapping(value="/login_page", method = RequestMethod.POST)
+	public String loginPage(){
+		return "login";
+	}
+	
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST) 
+	public String login(@RequestParam("username") String username, @RequestParam("password") String password, Model model){
+		if(!accountService.checkAccount(username, password)){
+			model.addAttribute("alert", "Wrong username or password");
+			return "login";
+		}
+		
+		this.login=true;
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.POST)
+	public String logout(){
+		this.login = false;
+		return "redirect:/";
 	}
 }

@@ -8,12 +8,19 @@
 <title>Search Match</title>
 </head>
 <body BGCOLOR=#FDF5E6 align=center>
-	<h1>Search Match</h1>
+	<h1 align=center>Search Match</h1>
 	<form action="<c:url value="/search" />" method="POST" >
 		<table align=center>
 			<tr>
 				<td>
-					<input type="text" name="teamName"  placeholder="Input team name..." />
+					<input list="teams" type="text" name="teamName"  placeholder="Input team name..." />
+					<datalist id="teams">
+						<option value="Vietnam">
+						<option value="Singapore">
+						<option value="Malaysia">
+						<option value="Indonesia">
+						<option value="Thailand">
+					</datalist>
 				</td>
 				<td>
 					<input type="submit" value="Search" />
@@ -22,7 +29,7 @@
 		</table>	
 	</form>
 	
-	
+	<br/>
 	<c:choose>
 		<c:when test="${not empty matches && action == 'search' }">
 			<table border=1 cellpadding=5 cellspacing= 5 align=center>
@@ -48,12 +55,15 @@
 			<c:out value="${alert }" />
 		</c:when>
 		<c:otherwise>
-			<p>Please put team name in the search field</p>
+			<p align=center>Please put team name in the search field</p>
 		</c:otherwise>
 	</c:choose>
 	<br/>
-	<form action="<c:url value="/" /> " > 
-		<input type="submit" value="Back to home" />
-	</form>
+	<center>
+		<form action="<c:url value="/" /> " > 
+			<input type="submit" value="Back to home" />
+		</form>
+	</center>
+	
 </body>
 </html>

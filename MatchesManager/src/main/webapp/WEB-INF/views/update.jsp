@@ -8,7 +8,7 @@
 <title>Update Match</title>
 </head>
 <body BGCOLOR=#FDF5E6 align=center>
-	<h1>Update Match</h1>
+	<h1 align=center>Update Match</h1>
 	
 	<form name="updateForm" action="<c:url value="/update"/>" method="POST" onsubmit="return validation(this)">
 		<table border=1 cellpadding=5 cellspacing= 5 align=center>
