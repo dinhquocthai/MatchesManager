@@ -43,7 +43,9 @@
 			</tr>
 		</table>
 		<c:if test="${not empty alert }">
-			<c:out value="${alert }" />
+			<center>
+				<c:out value="${alert }" />
+			</center>		
 		</c:if>
 		<br>
 		<center>

@@ -15,11 +15,9 @@
 				<td>
 					<input list="teams" type="text" name="teamName"  placeholder="Input team name..." />
 					<datalist id="teams">
-						<option value="Vietnam">
-						<option value="Singapore">
-						<option value="Malaysia">
-						<option value="Indonesia">
-						<option value="Thailand">
+						<c:forEach var="team" items="${teams }">
+							<option value="${team.getTeamName() }">
+						</c:forEach>
 					</datalist>
 				</td>
 				<td>
@@ -52,7 +50,9 @@
 			</table>
 		</c:when>
 		<c:when test="${not empty alert}">
-			<c:out value="${alert }" />
+			<center>
+				<c:out value="${alert }" />
+			</center>
 		</c:when>
 		<c:otherwise>
 			<p align=center>Please put team name in the search field</p>

@@ -127,12 +127,22 @@ public class MatchController {
 	
 	
 	@RequestMapping(value="/search_page", method = RequestMethod.POST)
-	public String searchMatch(){
+	public String searchMatch(Model model){
+		model.addAttribute("teams", teamService.getAllTeams());
 		return "search";
 	}
 
 	@RequestMapping(value="/search", method = RequestMethod.POST)
 	public String search(@RequestParam("teamName") String teamName, Model model){
+		if(teamName.trim().equals("") || teamName.equals("")){
+			List<Match> matches = matchService.getAllMatches();
+			Map<Integer, String> map = teamService.teamMap();
+			model.addAttribute("matches", matches);
+			model.addAttribute("map", map);
+			model.addAttribute("action", "search");
+			return "search";
+		}
+		
 		if(teamService.getTeamIdByName(teamName) == 0){
 			model.addAttribute("alert", "No matches found!");
 			return "search";
