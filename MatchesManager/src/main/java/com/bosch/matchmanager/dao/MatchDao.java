@@ -10,10 +10,10 @@ import javax.persistence.TypedQuery;
 
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import com.bosch.matchmanager.model.Match;
-import com.bosch.matchmanager.model.Team;
+
 
 @Component
 public class MatchDao{
