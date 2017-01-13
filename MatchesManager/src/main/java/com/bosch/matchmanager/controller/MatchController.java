@@ -146,6 +146,7 @@ public class MatchController {
 		
 		if(teamService.getTeamIdByName(teamName) == 0){
 			model.addAttribute("alert", "No matches found!");
+			model.addAttribute("teams", teamService.getAllTeams());
 			return "search";
 		}
 		List<Match> matches = matchService.getMatchesByTeam(teamService.getTeamIdByName(teamName));
