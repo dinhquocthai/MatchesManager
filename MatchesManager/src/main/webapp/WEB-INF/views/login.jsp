@@ -22,6 +22,11 @@
 		</form>
 	</center>
 	
+	<center>
+		<form action="<c:url value="/" />">
+			<input type="submit" value="Back to home" />
+		</form>
+	</center>
 	
 	<script type="text/javascript">
 		function validation(){

@@ -13,7 +13,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.bosch.matchmanager.model.Match;
 import com.bosch.matchmanager.model.Team;
 
 @Repository

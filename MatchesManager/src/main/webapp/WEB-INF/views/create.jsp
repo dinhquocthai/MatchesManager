@@ -51,9 +51,10 @@
 		<center>
 		<input type="submit" value="Add match" />
 		</center>
-		
 	</form>
+	
 	<br>
+	
 	<center>
 	<form action="<c:url value="/" />" >
 		<input type="submit" value="Back to home" />	
