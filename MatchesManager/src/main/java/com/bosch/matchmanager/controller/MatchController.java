@@ -140,6 +140,7 @@ public class MatchController {
 			model.addAttribute("matches", matches);
 			model.addAttribute("map", map);
 			model.addAttribute("action", "search");
+			model.addAttribute("teams", teamService.getAllTeams());
 			return "search";
 		}
 		
@@ -152,6 +153,7 @@ public class MatchController {
 		model.addAttribute("matches", matches);
 		model.addAttribute("map", map);
 		model.addAttribute("action", "search");
+		model.addAttribute("teams", teamService.getAllTeams());
 		return "search";
 	}
 	

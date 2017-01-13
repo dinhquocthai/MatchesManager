@@ -7,11 +7,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.bosch.matchmanager.model.Account;
 
 
-@Component
+@Repository
 public class AccountDao {
 	@PersistenceContext
 	private EntityManager em;
