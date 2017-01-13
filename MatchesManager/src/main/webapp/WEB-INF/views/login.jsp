@@ -12,8 +12,8 @@
 
 	<center>
 		<form name="loginForm" action="<c:url value="/login" />" method="POST" onsubmit="return validation(this)">
-			Username: <input type="text" name="username" /><br>
-			Password: <input type="password" name="password" /><br>
+			Username(dqt): <input type="text" name="username" /><br>
+			Password(dqt): <input type="password" name="password" /><br>
 			<c:if test="${not empty alert }">
 				<c:out value="${alert }" />
 			</c:if>
